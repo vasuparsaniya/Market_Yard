@@ -13,8 +13,7 @@ app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function ($s
     var loginUrl = serverUrl + '/login';
     var signupUrl = serverUrl + '/signup';
     var forgotpasswordUrl = serverUrl + '/forgotpassword';
-
-
+    
     var insertMethod = 'POST';
     var updateMethod = 'PUT';
 

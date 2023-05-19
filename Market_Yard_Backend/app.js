@@ -3,11 +3,10 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var databaseUrl = 'mongodb://localhost:27017/market_yard';
-var collections = ['registration','users'];
-// var collections2 = ['users'];
+var collections = ['farmer','users','retailer'];
 
 var mongojs = require('mongojs');
-var db1 = mongojs(databaseUrl, collections);
+var db = mongojs(databaseUrl, collections);
 // var db2 = mongojs(databaseUrl, collections2);
 
 // Middleware
@@ -30,19 +29,21 @@ app.get('/', function (req, res) {
 });
 
 // REST service
-// app.get('/getUsers', function (req, res) {
-//     db.registration.find('', function (err, users) {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.json(users);
-//         }
-//     });
-// });
+app.get('/getReatiler', function (req, res) {
+    db.retailer.find('', function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    });
+});
 
-app.post('/insertUser', function (req, res) {
+
+//---------------------farmer-------------------------------------
+app.post('/insertFarmer', function (req, res) {
     var jsonData = req.body;
-    db1.registration.save({ name: jsonData.name, role: jsonData.role, gender: jsonData.gender, crop: jsonData.crop, date: jsonData.date, phone: jsonData.phone, email: jsonData.email, }, function (err, saved) {
+    db.farmer.save({ name: jsonData.name, role: jsonData.role, gender: jsonData.gender, crop: jsonData.crop, date: jsonData.date, phone: jsonData.phone, email: jsonData.email, }, function (err, saved) {
         if (err) {
             console.log(err);
         } else {
@@ -50,6 +51,19 @@ app.post('/insertUser', function (req, res) {
         }
     });
 });
+
+//----------------------retailer----------------------------------
+app.post('/insertRetailer', function (req, res) {
+    var jsonData = req.body;
+    db.retailer.save({ name: jsonData.name, role: jsonData.role, price: jsonData.price, gender: jsonData.gender, crop: jsonData.crop, date: jsonData.date, phone: jsonData.phone, email: jsonData.email, }, function (err, saved) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.end('User saved');
+        }
+    });
+});
+
 
 // app.put('/updateUser', function (req, res) {
 //     var jsonData = req.body;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="../Market_Yard_Backend/routes/index.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -15,7 +15,8 @@
         body {
             font-family: Helvetica;
             -webkit-font-smoothing: antialiased;
-            background: rgba(71, 147, 227, 1);
+            /* background: rgba(71, 147, 227, 1); */
+            background: #b8dd24;
         }
 
         h2 {
@@ -178,13 +179,26 @@
         <table class="fl-table">
             <thead>
                 <tr>
-                    <th>name</th>
-                    <th>crop</th>
-                    <th></th>
-                    <th>email</th>
+                    <th>Name</th>
+                    <th>Crop</th>
+                    <th>Price</th>
+                    <th>Email-Id</th>
+                    <th>Book Slot</th>
                 </tr>
             </thead>
             </tr>
+
+            <tbody>
+                <tr ng-repeat="user in retailer | filter:user">
+                    <td><input type="text" ng-model="user.name" readonly/></td>
+                    <td><input type="text" ng-model="user.crop" readonly/></td>
+                    <td><input type="text" ng-model="user.price" readonly/></td>
+                    <td><input type="text" ng-model="user.email" readonly/></td>
+                    <td><button class="btn btn-primary" ng-click="update(user)">Book</button></td>
+                    <!-- <td><button class="btn btn-danger" style="margin-left:10px;" ng-click="remove()">Remove</button></td> -->
+                </tr>
+               </tbody>
+               </tr>
         </table>
         <button class="show" style="margin-left:10px;" ng-click="list()">Show</button>
     </div>

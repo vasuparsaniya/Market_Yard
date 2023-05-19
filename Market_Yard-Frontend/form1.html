@@ -83,7 +83,7 @@
 </head>
 
 <body ng-controller="UserListCtrl">
-  <form ng-submit="farmer()">
+  <form ng-submit="retailer()">
     <div class="container">
       <center>
         <h1><u> Register Here</h1></u>
@@ -98,7 +98,7 @@
           Role:
         </label>
         <select>
-          <option ng-model="role">Farmer</option>
+          <option ng-model="role">Retailer</option>
 
         </select>
         <!-- <select ng-model="role" ng-options="option for option in roles"></select> -->
@@ -127,6 +127,9 @@
         </select> -->
         <select ng-model="crop" ng-options="option for option in crops"></select>
       </div>
+
+      <label> Price(Enter Price per kg of the selected crop above): </label>
+      <input type="text" name="cropPrice" placeholder="Enter approximate price as per standars" ng-model="price" required />
       <label> Date : </label>
       <input type="date" name="" placeholder="12-09-22" ng-model="date" size="" required /><br>
       <!-- <label> Time : </label>
@@ -148,7 +151,7 @@
       <label for="psw-repeat"><b>Confirm Password</b></label>
       <input type="password" placeholder="Retype Password" name="psw-repeat" ng-model="confirmpassword" required> -->
 
-      <button type="submit" class="registerbtn"><a href="./data.html">Submit</a></button>
+      <button type="submit" class="registerbtn">Submit</button>
 
       <button type="submit" class="registerbtn">Reset</button>
       <!-- <a href="index2.html"><button type="" class="registerbtn">Back to Home Page</button></a>  -->

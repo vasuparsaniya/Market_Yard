@@ -9,18 +9,20 @@ app.config(['$httpProvider', function ($httpProvider) {
 app.controller('UserListCtrl', ['$scope', '$http', '$templateCache', function($scope, $http, $templateCache) {
 // ...
 var serverUrl = 'http://localhost:8080';
-var insertUrl = serverUrl + '/insertUser';
-var getUrl = serverUrl + '/getUsers';
+var insertFarmerUrl = serverUrl + '/insertFarmer';
+var insertRetailerUrl = serverUrl + '/insertRetailer';
+var getUrl = serverUrl + '/getReatiler';
 
 
 var insertMethod = 'POST';
+var getMethod = 'GET';
 var updateMethod = 'PUT';
 
 
-$scope.roles = ['Farmer', 'Retailer', 'Wholesaler'];
+$scope.roles = ['Farmer', 'Retailer'];
 $scope.crops = ['Ragi', 'Wheat', 'Rice', 'Jowar', 'Bajra', 'Pulses'];
 
-$scope.save = function () {
+$scope.farmer = function () {
     var formData = {
         name: this.name,
         role: this.role,
@@ -40,12 +42,49 @@ $scope.save = function () {
 
     $http({
         method: insertMethod,
-        url: insertUrl,
+        url: insertFarmerUrl,
         data: formData, // Send data in the request body as JSON
         headers: { 'Content-Type': 'application/json' }
     })
         .success(function (response) {
-            console.log("Successfully register....")
+            console.log("Farmer Successfully register....")
+            // $scope.list();
+        })
+        .error(function (error) {
+            console.log(error);
+        });
+
+    return false;
+};
+
+$scope.retailer = function () {
+    var formData = {
+        name: this.name,
+        role: this.role,
+        price:this.price,
+        gender: this.gender,
+        crop: this.crop,
+        date: this.date,
+        phone: this.phone,
+        email: this.email
+    };
+    this.name = '';
+    this.role = '';
+    this.price = '';
+    this.gender = '';
+    this.crop = '';
+    this.date = '';
+    this.phone = '';
+    this.email = '';
+
+    $http({
+        method: insertMethod,
+        url: insertRetailerUrl,
+        data: formData, // Send data in the request body as JSON
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .success(function (response) {
+            console.log("Retailer Successfully register....")
             // $scope.list();
         })
         .error(function (error) {
@@ -56,10 +95,12 @@ $scope.save = function () {
 };
 
 
+
+
 $scope.list = function() {
     $http.get(getUrl)
         .success(function(data) {
-            $scope.users = data;
+            $scope.retailer = data;
         })
         .error(function(error) {
             console.log(error);
