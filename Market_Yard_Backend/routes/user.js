@@ -7,7 +7,7 @@ app.config(['$httpProvider', function ($httpProvider) {
 }
 ]);
 
-app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function($scope, $http, $templateCache) {
+app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function ($scope, $http, $templateCache) {
     // ...
     var serverUrl = 'http://localhost:8080';
     var loginUrl = serverUrl + '/login';
@@ -65,8 +65,33 @@ app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function($sc
             .error(function (error) {
                 console.log(error);
             });
+        return false;
+    };
 
+
+    $scope.forgotpassword = function () {
+        var formData1 = {
+            email: this.email,
+            password: this.password,
+            confirmpassword: this.confirmpassword
+        };
+        this.email = '';
+        this.password = '';
+        this.confirmpassword = '';
+
+
+        $http({
+            method: insertMethod,
+            url: signupUrl,
+            data: formData1, // Send data in the request body as JSON
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .success(function (response) {
+                console.log("Signup.....");
+            })
+            .error(function (error) {
+                console.log(error);
+            });
         return false;
     };
 }]);
-    

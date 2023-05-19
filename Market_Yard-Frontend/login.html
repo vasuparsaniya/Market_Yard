@@ -8,26 +8,21 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="login.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="/Market_Yard_Backend/routes/user.js"></script>
 </head>
 
-<body>
+<body ng-controller="LoginSignup">
     <div class="main">
         <div class="form">
             <div id="login">
-                <form method="POST" action="#" id="form"></form>
+                <form id="form" ng-submit="login()"></form>
                 <h2>Login Here</h2>
-                <input type="email" name="email" id="email" placeholder="Enter Your Email" />
+                <input type="email" name="email" id="email" placeholder="Enter Your Email" ng-model="email" />
                 <!-- <span id="emailerror"></span> -->
-                <input type="password" name="password" id="pass" placeholder="Enter Your Password" />
+                <input type="password" name="password" id="pass" placeholder="Enter Your Password"
+                    ng-model="password" />
                 <!-- <span id="passerror"></span> -->
-                <button class="btnn" id="submit"><a href="#">Login</a></button>
-                <script>
-                    document.getElementById("submit").addEventListener("click", myFunction);
-                    function myFunction() {
-                        window.location.href = "index2.html";
-                    }
-                </script>
+                <button type="submit" class="btnn" id="submit"><a href="#">Login</a></button>
 
                 <p class="link">Don't have an account<br>
                     <a href="./signup.html">Sign up </a> Here

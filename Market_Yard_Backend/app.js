@@ -91,6 +91,7 @@ app.post('/login', function (req, res) {
             res.status(401).send('Incorrect password');
             return;
         }
+        console.log('Successfully Login');
 
         // Successful login
         res.send('Successfully Login');
@@ -101,8 +102,7 @@ app.post('/login', function (req, res) {
 app.post('/signup', function (req, res) {
     var jsonData = req.body;
 
-    // Assuming you have a MongoDB collection named 'users'
-    db2.users.findOne({ email: jsonData.email, password: jsonData.password }, function (err, user) {
+    db2.users.findOne({ email: jsonData.email}, function (err, user) {
         if (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
