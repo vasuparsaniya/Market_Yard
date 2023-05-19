@@ -3,12 +3,12 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var databaseUrl = 'mongodb://localhost:27017/market_yard';
-var collections1 = ['registration'];
-var collections2 = ['users'];
+var collections = ['registration','users'];
+// var collections2 = ['users'];
 
 var mongojs = require('mongojs');
-var db1 = mongojs(databaseUrl, collections1);
-var db2 = mongojs(databaseUrl, collections2);
+var db1 = mongojs(databaseUrl, collections);
+// var db2 = mongojs(databaseUrl, collections2);
 
 // Middleware
 app.use(express.json());
