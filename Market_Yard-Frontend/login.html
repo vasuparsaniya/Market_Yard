@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="form">
+            <div id="login">
+                <form method="POST" action="#" id="form"></form>
+                <h2>Login Here</h2>
+                <input type="email" name="email" id="email" placeholder="Enter Your Email" />
+                <!-- <span id="emailerror"></span> -->
+                <input type="password" name="password" id="pass" placeholder="Enter Your Password" />
+                <!-- <span id="passerror"></span> -->
+                <button class="btnn" id="submit"><a href="#">Login</a></button>
+                <script>
+                    document.getElementById("submit").addEventListener("click", myFunction);
+                    function myFunction() {
+                        window.location.href = "index2.html";
+                    }
+                </script>
+
+                <p class="link">Don't have an account<br>
+                    <a href="./signup.html">Sign up </a> Here
+                </p>
+                <p class="liw">Log in with</p>
+                <p class="fpass"><a href="./forgotpassword.html">Forgot Password</a></p>
+                </form>
+            </div>
+        </div>
+
+</body>
+
+</html>

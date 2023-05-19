@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MARKET-YARD</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <div class="header">
+    <img class="logo" src="logo.jpeg" alt="">
+    <div class="header-right">
+      <a class="active" href="#home">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Services
+          <i class="fa fa-solid fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="https://services.india.gov.in/">Government policies</a>
+          <a href="https://farmech.dac.gov.in/FarmerGuide/GJ.pdf">Farming tools</a>
+        </div>
+      </div>
+      <a href="#contact">Contact</a>
+      <a href="./index1.html">About Us</a>
+      <a href="./login.html">Login</a>
+    </div>
+  </div>
+  <h2 class="welcome">
+    Welcome to Market Yard.
+  </h2><br>
+  <!--HOME-->
+  <section class="first">
+    <div class="home welcome" id="home">
+      <!-- Market Yard deals For Farmers. -->
+      Here you can find the best deals for your crops.<br> Checkout the latest government
+      policies and you can book slots for selling your crops.
+
+      <br><br><br><br>
+      <div class="row">
+        <div class="column" id="farmer" style="text-align: centre;">
+          <h3><u><i>FARMER</i></u></h3>
+          <img src="images.jpg" alt="farmer" style="width:300px ;height:150px">
+          <div class="r-details">
+            <p class="wel">
+            </p><br>
+            <button class="button__primary w3-centre" id="f-form" target="_blank" style=" margin-left: 150px;"><a
+                href="form2.html">Register</a></button>
+          </div>
+        </div>
+
+        <div class="column" id="retailer" style="text-align: centre;">
+          <h3><u><i>RETAILER</i></u></h3>
+          <img src="download.jpg" alt="farmer" style="width:300px ;height:150px">
+          <div class="r-details">
+            <p class="wel">
+            </p><br>
+            <button class="f-form button__primary w3-centre" id="f-form" target="_blank" style=" margin-left: 150px;"><a
+                href="form2.html">Register</a></button>
+          </div>
+        </div>
+
+        <div class="column" id="wholesaler" style="text-align: centre;">
+          <h3><u><i>WHOLESALER</i></u></h3>
+          <img src="wholesaler.png" alt="wholesaler" style="width:300px ;height:150px">
+          <div class="r-details">
+            <p class="wel">
+            </p><br>
+            <button class="f-form button__primary w3-centre" id="f-form" target="_blank" style=" margin-left: 150px;"><a
+                href="form2.html">Register</a></button>
+          </div>
+        </div>
+      </div>
+
+  </section>
+  <!-- The Contact Section -->
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <h2 class="w3-wide w3-center">CONTACT</h2>
+    <p class="w3-opacity w3-center"><i>Drop a note!</i></p>
+    <div class="w3-row w3-padding-32">
+      <div class="w3-col m6 w3-large w3-margin-bottom">
+
+        <div><i class="fa fa-phone" style="width:30px"></i>Phone:<br>
+          94092 08012<br>
+          93282 56707<br>
+          94281 72085<br>
+          95866 06859
+        </div>
+        <i class="fa fa-envelope" style="width:30px"> </i> Email: <br>
+        kaushalnanda2610@gmail.com<br>
+        shailee20edu@gmail.com
+      </div>
+      <div class="w3-col m6">
+        <form action="/action_page.php" target="_blank">
+          <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+            <div class="w3-half">
+              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+            </div>
+            <div class="w3-half">
+              <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+            </div>
+          </div>
+          <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+          <button class="w3-right button__primary" id="myBtn" type="submit">Send</button>
+          <script>
+            document.getElementById("myBtn").addEventListener("click", myFunction);
+            function myFunction() {
+              window.location.href = "index2.html";
+            }
+          </script>
+        </form>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <ul>
+        <li>Pricing</li>
+        <li>Terms and conditions</li>
+        <li>Contact</li>
+      </ul>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+  <script type="text/javascript" src="../Market_Yard_Backend/routes/index.js"></script>
+  <style>
+    body {
+      font-family: Calibri, Helvetica, sans-serif;
+      background-color: #b8dd24;
+    }
+
+    .container {
+      padding: 50px;
+      background-color: #f1f1f1;
+    }
+
+    input[type=text],
+    input[type=password],
+    input[type=date],
+    input[type=time],
+    select,
+    textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      display: inline-block;
+      border: none;
+      background: #b8dd24;
+      color: white;
+    }
+
+    input[type=text]:focus,
+    input[type=password]:focus {
+      background-color: #b8dd24;
+      outline: none;
+    }
+
+    div {
+      padding: 10px 0;
+    }
+
+    hr {
+      border: 1px solid #b8dd24;
+      margin-bottom: 25px;
+    }
+
+    .registerbtn {
+      background-image: linear-gradient(to right,
+          #d2d21a 10%,
+          #b8dd24 51%,
+          #30c31c 100%);
+    }
+
+    .registerbtn {
+      margin: 10px;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      text-transform: capitalize;
+      transition: 0.5s;
+      font-weight: 600;
+      background-size: 200% auto;
+      color: black;
+      box-shadow: 0 0 20px #eee;
+      border-radius: 4px;
+      display: inline;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .registerbtn:hover {
+      opacity: 1;
+    }
+
+    label {
+      font-size: x-large;
+    }
+  </style>
+</head>
+
+<body ng-controller="UserListCtrl">
+  <form ng-submit="save()">
+    <div class="container">
+      <center>
+        <h1><u> Register Here</h1></u>
+      </center>
+      <hr>
+      <label> Name: </label>
+      <input type="text" name="firstname" placeholder="Enter full name" ng-model="name" size="25" required />
+      <!-- <label> Aadhar Card Number: </label>
+      <input type="text" name="Aadhar number" placeholder="Adhar number" size="15" required /> -->
+      <div>
+        <label>
+          Role:
+        </label>
+        <!-- <select>
+          <option></option>
+          <option ng-model="role">Farmer</option>
+          <option ng-model="role">Retailer</option>
+          <option ng-model="role">wholesaler</option>
+        </select> -->
+        <select ng-model="role" ng-options="option for option in roles"></select>
+      </div>
+      <div>
+        <label>
+          Gender :
+        </label><br>
+        <input type="radio" value="Male" name="gender" ng-model="gender" checked> Male
+        <input type="radio" value="Female" name="gender" ng-model="gender"> Female
+        <input type="radio" value="Other" name="gender" ng-model="gender"> Other
+
+      </div>
+      <div>
+        <label>
+          Crop :
+        </label>
+        <!-- <select>
+          <option></option>
+          <option ng-model="crop">Ragi</option>
+          <option ng-model="crop">Wheat</option>
+          <option ng-model="crop">Rice</option>
+          <option ng-model="crop">Jowar</option>
+          <option ng-model="crop">Bajra</option>
+          <option ng-model="crop">Pulses</option>
+        </select> -->
+        <select ng-model="crop" ng-options="option for option in crops"></select>
+      </div>
+      <label> Date : </label>
+      <input type="date" name="" placeholder="12-09-22" ng-model="date" size="" required /><br>
+      <!-- <label> Time : </label>
+      <input type="time" name="" placeholder="12-09-22" size="" ng-model="time" required /><br> -->
+
+      <label>
+        Phone :
+      </label>
+      <input type="text" name="country code" placeholder="Phone Number" ng-model="phone" value="+91" size="2" />
+      Current Address :
+      <textarea cols="80" rows="5" placeholder="Current Address" ng-model="address" value="address" required>
+</textarea>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" ng-model="email" required>
+
+      <!-- <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" ng-model="password" required>
+
+      <label for="psw-repeat"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Retype Password" name="psw-repeat" ng-model="confirmpassword" required> -->
+
+      <button type="submit" class="registerbtn">Submit</button>
+
+      <button type="submit" class="registerbtn">Reset</button>
+      <!-- <a href="index2.html"><button type="" class="registerbtn">Back to Home Page</button></a>  -->
+  </form>
+  <!-- 
+  <script>
+    function f1() {
+      alert('Form submitted successfully!!')
+    } -->
+  </script>
+</body>
+
+</html>
