@@ -11,6 +11,9 @@ const path = require('path');
 const pdf = require('html-pdf');
 const fs = require('fs');
 
+const nodemailer = require('nodemailer');
+
+
 
 var mongojs = require('mongojs');
 var db = mongojs(databaseUrl, collections);
@@ -230,8 +233,8 @@ app.post('/insertRetailer', function (req, res) {
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
-const nodemailer = require('nodemailer');
 
+//===========================================================================================================================
 
 app.post('/insertBookSlot', (req, res) => {
   const generatedUuid = uuid.v1();
@@ -248,12 +251,12 @@ app.post('/insertBookSlot', (req, res) => {
     retailerPhone: jsonData.retailerPhone,
     crop: jsonData.crop,
     address: jsonData.address
-  }, (err, saved) => {
+  }, function (err, saved) {
     if (err) {
       console.log(err);
       res.status(500).json({ error: 'Server error' });
     } else {
-        
+
       const templatePath = path.join(__dirname, 'routes', 'report.ejs');
       const outputPath = path.join(__dirname, './generated_pdf/', generatedUuid + '.pdf');
 
@@ -310,18 +313,24 @@ app.post('/insertBookSlot', (req, res) => {
                   return res.status(500).json({ error: 'Failed to send email' });
                 } else {
                   console.log('Email sent:', info.response);
-                  res.json({ success: true, message: 'PDF generated and email sent successfully' });
-                }
+                  res.json({ success: true, message: 'PDF generated and Conformation of Email sent successfully' });  
+            }
               });
             }
           });
+          const responseMessage = 'PDF generated and Conformation of Email sent successfully';
+          const response = { success: true, message: responseMessage};
+          res.send(response); // Send the response with the custom message and result  
+
+        //   res.send(result);
+
         }
       });
     }
   });
 });
 
-
+//======================================================================================================================
 
 // app.get('/getRetailer/:retailerId', (req, res) => {
 //     const retailerId = req.params.retailerId;
