@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <style>
+            table{
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td,th{
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <h3 style="text-align: center;">Market Yard</h3>
+        <table>
+            <tr>
+                 <th>Farmer Name: <%= farmerName %></th>   <!--name is a javascript variable -->
+                 <th>Gender: <%= gender %></th>
+            </tr>
+
+            <tr>
+                <th>Farmer Contact Number: <%= farmerPhone %></th>
+                <th>Farmer Email-Id: <%= farmerEmail %></th>
+            </tr>
+
+            <tr>
+                <th>Slot Time: <%= slotTime %></th>
+                <th>Date: <%= date %></th>
+            </tr>
+
+            <tr>
+                <th>Retailer Name: <%= retailerName %></th>
+                <th>Crop: <%= crop %></th>
+            </tr>
+
+            <tr>
+                <th>Retailer Contact Number: <%= retailerPhone %></th>
+                <th>Retailer Address: <%= address %></th>
+            </tr>
+        </table>
+
+        <h3>Thank You For Visiting. Please Visite Again</h3>
+    </body>
+</html>

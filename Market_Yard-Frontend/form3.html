@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <script type="text/javascript" src="../Market_Yard_Backend/routes/index.js"></script>
+
+    <style>
+        body {
+            font-family: Calibri, Helvetica, sans-serif;
+            background-color: #b8dd24;
+        }
+
+        .container {
+            padding: 50px;
+            background-color: #f1f1f1;
+        }
+
+        input[type=text],
+        input[type=password],
+        input[type=date],
+        input[type=time],
+        select,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #b8dd24;
+            color: white;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus {
+            background-color: #b8dd24;
+            outline: none;
+        }
+
+        div {
+            padding: 10px 0;
+        }
+
+        hr {
+            border: 1px solid #b8dd24;
+            margin-bottom: 25px;
+        }
+
+        .registerbtn {
+            background-image: linear-gradient(to right,
+                    #d2d21a 10%,
+                    #b8dd24 51%,
+                    #30c31c 100%);
+        }
+
+        .registerbtn {
+            margin: 10px;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            text-transform: capitalize;
+            transition: 0.5s;
+            font-weight: 600;
+            background-size: 200% auto;
+            color: black;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 4px;
+            display: inline;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+
+        label {
+            font-size: x-large;
+        }
+    </style>
+</head>
+
+<body ng-controller="UserListCtrl" ng-init="getRetailerData()" ng-init="userId = getQueryParam('user_id')">
+    <form ng-submit="bookSlot()">
+        <div class="container">
+            <center>
+                <h1><u> Book Slot</h1></u>
+            </center>
+            <hr>
+            <label> Farmer Name: </label>
+            <input type="text" name="firstname" placeholder="Enter full name" ng-model="farmerName" size="25"
+                required />
+            <label>
+                Gender :
+            </label><br>
+            <input type="radio" value="Male" name="gender" ng-model="gender" checked> Male
+            <input type="radio" value="Female" name="gender" ng-model="gender"> Female
+            <input type="radio" value="Other" name="gender" ng-model="gender"> Other
+            <label>
+                <br>
+                Farmer Phone Number :
+            </label>
+            <input type="text" name="country code" placeholder="Phone Number" ng-model="farmerPhone" value="+91" size="2" />
+
+            <label for="email">Farmer Email</label>
+            <input type="text" placeholder="Enter Email" name="email" ng-model="farmerEmail" required>
+
+            <label> Select Slot Time : </label>
+            <!-- <input type="time" name="" placeholder="12-09-22" size="" ng-model="time" required /><br> -->
+            <select ng-model="slotTime">
+                <option>10:45am</option>
+                <option>12:00am</option>
+                <option>2:00pm</option>
+                <option>4:00pm</option>
+            </select>
+
+            <!-- ------------------------------redonly---------------------------------------- -->
+
+            <div>
+                <label> Slot Date : </label>
+                <input type="text" name="" placeholder="This is show" ng-model="date" size="" readonly /><br>
+
+
+                <label> Retailer Name: </label>
+                <input type="text" name="firstname" placeholder="Retailer Name" ng-model="retailerName" size="25"
+                    readonly />
+
+                <label>
+                    Retailer Phone Number :
+                </label>
+                <input type="text" name="country code" placeholder="Retailer Phone Number" ng-model="retailerPhone"
+                    value="+91" size="2" readonly />
+
+                <label> Crop: </label>
+                <input type="text" name="firstname" placeholder="" ng-model="crop" size="25" readonly />
+
+                <label>Current Address :</label>
+                <textarea cols="80" rows="5" placeholder="Current Address" ng-model="address" value="address" readonly>
+</textarea>
+                <!-- </div> -->
+
+
+                <!-- <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" ng-model="password" required>
+
+      <label for="psw-repeat"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Retype Password" name="psw-repeat" ng-model="confirmpassword" required> -->
+
+                <button type="submit" class="registerbtn">Submit</a></button>
+
+                <button type="submit" class="registerbtn">Reset</button>
+                <!-- <button type="submit" class="registerbtn" ng-click="list()">Show</button> -->
+
+                <!-- <a href="index2.html"><button type="" class="registerbtn">Back to Home Page</button></a>  -->
+    </form>
+    </script>
+</body>
+
+</html>
