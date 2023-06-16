@@ -2,6 +2,7 @@ var http = require('http');
 var express = require('express');
 
 var app = express();
+// var databaseUrl = 'mongodb+srv://vasuparsaniya21:vasu123@cluster.mznvtrt.mongodb.net/market_yard';
 var databaseUrl = 'mongodb://localhost:27017/market_yard';
 var collections = ['farmer', 'users', 'retailer','bookSlot'];
 
