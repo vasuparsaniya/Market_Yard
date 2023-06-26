@@ -259,3 +259,18 @@ ul li a:hover{
     color: rgb(73, 159, 212);
     text-decoration: none;
 }
+
+.button-disabled {
+    background-color: rgb(73, 159, 212);
+    color: rgb(73, 159, 212);
+  }
+
+  .button-disabled:hover {
+    background-color: rgb(73, 159, 212);
+    color:rgb(73, 159, 212);
+  }
+
+  #warning{
+    color:white;
+  }
+  

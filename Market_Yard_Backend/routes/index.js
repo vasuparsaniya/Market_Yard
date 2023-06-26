@@ -15,6 +15,10 @@ app.controller('UserListCtrl', ['$scope', '$http', '$templateCache', '$window', 
     var getUrl = serverUrl + '/getReatiler';
     var getNewUrl = serverUrl + '/getRetailer/';
 
+    var loginUrl = serverUrl + '/login';
+    var signupUrl = serverUrl + '/signup';
+    var forgotpasswordUrl = serverUrl + '/forgotpassword';
+
     var insertMethod = 'POST';
     var getMethod = 'GET';
     var updateMethod = 'PUT';
@@ -312,21 +316,9 @@ app.controller('UserListCtrl', ['$scope', '$http', '$templateCache', '$window', 
     //     return false;
     //   };
 
-}]);
 
-
-
-app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function ($scope, $http, $templateCache) {
-    // ...
-    var serverUrl = 'http://localhost:8080';
-    var loginUrl = serverUrl + '/login';
-    var signupUrl = serverUrl + '/signup';
-    var forgotpasswordUrl = serverUrl + '/forgotpassword';
-
-
-    var insertMethod = 'POST';
-    var updateMethod = 'PUT';
-
+    //=====================================
+    
     $scope.login = function () {
         var formData = {
             email: this.email,
@@ -342,17 +334,27 @@ app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function ($s
             headers: { 'Content-Type': 'application/json' }
         })
             .success(function (response) {
-                console.log("Login.....");
+                console.log("Login Successfully....")
+                var message = "Login Successfully....";
+                alert(message);
+                $window.location.assign('index.html'); // Redirect to index.html
             })
             .error(function (error) {
-                console.log(error);
+                // console.log(error);
+                alert("User not found");
             });
-
         return false;
     };
+    
+    $scope.passwordMatch = true;
 
+    $scope.checkPasswordMatch = function () {
+        $scope.passwordMatch = $scope.confirmpassword === $scope.password;
+    };
+    
     $scope.signup = function () {
-        var formData1 = {
+
+        var formData = {
             email: this.email,
             password: this.password,
             confirmpassword: this.confirmpassword
@@ -365,16 +367,115 @@ app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function ($s
         $http({
             method: insertMethod,
             url: signupUrl,
-            data: formData1, // Send data in the request body as JSON
+            data: formData, // Send data in the request body as JSON
             headers: { 'Content-Type': 'application/json' }
         })
             .success(function (response) {
-                console.log("Signup.....");
-            })
+                console.log("SignUp Successfully....")
+                var message = "SignUp Successfully....";
+                alert(message)
+                $window.location.assign('login.html'); // Redirect to login.html   
+             })
             .error(function (error) {
+                if (error.status === 400) {
+                    alert("Email Already Exists. Please try again with a different email.");
+                } else {
+                    alert("Email Already Exists");
+                }
                 console.log(error);
             });
-
         return false;
     };
+
+    
+    $scope.forgotpassword = function () {
+        var formData = {
+            email: this.email
+        };
+        this.email = '';
+
+
+        $http({
+            method: insertMethod,
+            url: forgotpasswordUrl,
+            data: formData, // Send data in the request body as JSON
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .success(function (response) {
+                console.log("Password Send Successfully to your Email....")
+                var message = "Password Send Successfully to your Email....";
+                alert(message)
+                $window.location.assign('login.html'); // Redirect to login.html   
+             })
+            .error(function (error) {
+                if (error.status === 400) {
+                    alert("Email Already Exists. Please try again with a different email.");
+                } else {
+                    alert("Something Went Wrong");
+                }
+                console.log(error);
+            });
+        return false;
+    };
+
+
 }]);
+
+
+
+// app.controller('LoginSignup', ['$scope', '$http', '$templateCache', function ($scope, $http, $templateCache) {
+//     // ...
+
+//     $scope.login = function () {
+//         var formData = {
+//             email: this.email,
+//             password: this.password
+//         };
+//         this.email = '';
+//         this.password = '';
+
+//         $http({
+//             method: insertMethod,
+//             url: loginUrl,
+//             data: formData, // Send data in the request body as JSON
+//             headers: { 'Content-Type': 'application/json' }
+//         })
+//             .success(function (response) {
+//                 console.log("Login.....");
+//             })
+//             .error(function (error) {
+//                 console.log(error);
+//             });
+
+//         return false;
+//     };
+    
+//     $scope.signup = function () {
+//         var formData1 = {
+//             email: this.email,
+//             password: this.password,
+//             confirmpassword: this.confirmpassword
+//         };
+//         this.email = '';
+//         this.password = '';
+//         this.confirmpassword = '';
+
+
+//         $http({
+//             method: insertMethod,
+//             url: signupUrl,
+//             data: formData1, // Send data in the request body as JSON
+//             headers: { 'Content-Type': 'application/json' }
+//         })
+//             .success(function (response) {
+//                 console.log("SignUp Successfully....")
+//                 var message = "SignUp Successfully....";
+//                 alert(message);
+//                 $window.location.assign('login.html'); // Redirect to data.html   
+//              })
+//             .error(function (error) {
+//                 console.log(error);
+//             });
+//         return false;
+//     };
+// }]);

@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 // var databaseUrl = 'mongodb+srv://vasuparsaniya21:vasu123@cluster.mznvtrt.mongodb.net/market_yard';
 var databaseUrl = 'mongodb://localhost:27017/market_yard';
-var collections = ['farmer', 'users', 'retailer','bookSlot'];
+var collections = ['farmer', 'users', 'retailer', 'bookSlot'];
 
 const uuid = require('uuid');
 const ejs = require('ejs');
@@ -238,30 +238,10 @@ app.post('/insertRetailer', function (req, res) {
 //===========================================================================================================================
 
 app.post('/insertBookSlot', (req, res) => {
-  const generatedUuid = uuid.v1();
-  const jsonData = req.body;
+    const generatedUuid = uuid.v1();
+    const jsonData = req.body;
 
-  db.bookSlot.save({
-    farmerName: jsonData.farmerName,
-    gender: jsonData.gender,
-    farmerPhone: jsonData.farmerPhone,
-    farmerEmail: jsonData.farmerEmail,
-    slotTime: jsonData.slotTime,
-    date: jsonData.date,
-    retailerName: jsonData.retailerName,
-    retailerPhone: jsonData.retailerPhone,
-    crop: jsonData.crop,
-    address: jsonData.address
-  }, function (err, saved) {
-    if (err) {
-      console.log(err);
-      res.status(500).json({ error: 'Server error' });
-    } else {
-
-      const templatePath = path.join(__dirname, 'routes', 'report.ejs');
-      const outputPath = path.join(__dirname, './generated_pdf/', generatedUuid + '.pdf');
-
-      ejs.renderFile(templatePath, {
+    db.bookSlot.save({
         farmerName: jsonData.farmerName,
         gender: jsonData.gender,
         farmerPhone: jsonData.farmerPhone,
@@ -272,63 +252,83 @@ app.post('/insertBookSlot', (req, res) => {
         retailerPhone: jsonData.retailerPhone,
         crop: jsonData.crop,
         address: jsonData.address
-      }, (err, html) => {
+    }, function (err, saved) {
         if (err) {
-          console.log(err);
-          return res.status(500).json(err);
+            console.log(err);
+            res.status(500).json({ error: 'Server error' });
         } else {
-          pdf.create(html).toFile(outputPath, (err, result) => {
-            if (err) {
-              console.log(err);
-              return res.status(500).json(err);
-            } else {
-              // Send the email with the PDF attachment
-              const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                host: 'smtp.google.email',
-                // host: 'smtp.ethereal.email',
-                port: 587,
-                secure: false,
-                auth: {
-                    user: 'vasuparsaniya21@gmail.com',
-                    pass: 'vwkwjanzdtbdorae'
-                }              
-            });
 
-              const mailOptions = {
-                from: 'vasuparsaniya21@gmail.com', // Sender email address
-                to: jsonData.farmerEmail, // Farmer email address
-                subject: 'Market Yard Book Slot Confirmation',
-                text: 'Please find the attached PDF for your slot confirmation.',
-                attachments: [
-                  {
-                    filename: generatedUuid + '.pdf',
-                    path: outputPath
-                  }
-                ]
-              };
+            const templatePath = path.join(__dirname, 'routes', 'report.ejs');
+            const outputPath = path.join(__dirname, './generated_pdf/', generatedUuid + '.pdf');
 
-              transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                  console.log(error);
-                  return res.status(500).json({ error: 'Failed to send email' });
+            ejs.renderFile(templatePath, {
+                farmerName: jsonData.farmerName,
+                gender: jsonData.gender,
+                farmerPhone: jsonData.farmerPhone,
+                farmerEmail: jsonData.farmerEmail,
+                slotTime: jsonData.slotTime,
+                date: jsonData.date,
+                retailerName: jsonData.retailerName,
+                retailerPhone: jsonData.retailerPhone,
+                crop: jsonData.crop,
+                address: jsonData.address
+            }, (err, html) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json(err);
                 } else {
-                  console.log('Email sent:', info.response);
-                  res.json({ success: true, message: 'PDF generated and Conformation of Email sent successfully' });  
-            }
-              });
-            }
-          });
-          const responseMessage = 'PDF generated and Conformation of Email sent successfully';
-          const response = { success: true, message: responseMessage};
-          res.send(response); // Send the response with the custom message and result  
+                    pdf.create(html).toFile(outputPath, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).json(err);
+                        } else {
+                            // Send the email with the PDF attachment
+                            const transporter = nodemailer.createTransport({
+                                service: 'gmail',
+                                host: 'smtp.google.email',
+                                // host: 'smtp.ethereal.email',
+                                port: 587,
+                                secure: false,
+                                auth: {
+                                    user: 'vasuparsaniya21@gmail.com',
+                                    pass: 'vwkwjanzdtbdorae'
+                                }
+                            });
 
-        //   res.send(result);
+                            const mailOptions = {
+                                from: 'vasuparsaniya21@gmail.com', // Sender email address
+                                to: jsonData.farmerEmail, // Farmer email address
+                                subject: 'Market Yard Book Slot Confirmation',
+                                text: 'Please find the attached PDF for your slot confirmation.',
+                                attachments: [
+                                    {
+                                        filename: generatedUuid + '.pdf',
+                                        path: outputPath
+                                    }
+                                ]
+                            };
 
+                            transporter.sendMail(mailOptions, (error, info) => {
+                                if (error) {
+                                    console.log(error);
+                                    return res.status(500).json({ error: 'Failed to send email' });
+                                } else {
+                                    console.log('Email sent:', info.response);
+                                    res.json({ success: true, message: 'PDF generated and Conformation of Email sent successfully' });
+                                }
+                            });
+                        }
+                    });
+                    const responseMessage = 'PDF generated and Conformation of Email sent successfully';
+                    const response = { success: true, message: responseMessage };
+                    res.send(response); // Send the response with the custom message and result  
+
+                    //   res.send(result);
+
+                }
+            });
         }
-      });
-    }
-  });
+    });
 });
 
 //======================================================================================================================
@@ -375,153 +375,169 @@ app.post('/insertBookSlot', (req, res) => {
 //     );
 // });
 
+// app.post('/login', function (req, res) {
+//     var jsonData = req.body;
+
+//     // Assuming you have a MongoDB collection named 'users'
+//     db.users.findOne({ email: jsonData.email}, function (err, saved) {
+//         if (err) {
+//             console.log(err);
+//             // return res.status(500).json(err);
+//             return res.status(400).json({ message: "User not Exists" });
+//         } else {
+//             return res.status(200).json({ message: "Successfully Login" });
+//         }
+//     });
+// });
+
+
 app.post('/login', function (req, res) {
     var jsonData = req.body;
-
-    // Assuming you have a MongoDB collection named 'users'
-    db2.users.findOne({ email: jsonData.email }, function (err, user) {
+    db.users.findOne({ email: jsonData.email }, function (err, saved) {
         if (err) {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-            return;
+            console.log(err);
+            return res.status(500).json(err);
+        } else {
+            if (saved) {
+                // db.users.save({ email: jsonData.email, password: jsonData.password }, function (err, savedUser) {
+                //     if (err) {
+                //         console.log(err);
+                //         return res.status(500).json(err);
+                //     } else {
+                //         return res.status(200).json({ message: "Login Successfully...." });
+                //     }
+                // });
+                return res.status(200).json({ message: "Login Successfully...." });
+            } else {
+                return res.status(400).json({ message: "User Not Found" });
+            }
         }
-
-        if (!user) {
-            // User not found
-            console.log("User not found")
-            res.status(404).send('User not found');
-            return;
-        }
-
-        if (user.password !== jsonData.password) {
-            // Incorrect password
-            res.status(401).send('Incorrect password');
-            return;
-        }
-        console.log('Successfully Login');
-
-        // Successful login
-        res.send('Successfully Login');
     });
 });
 
+
+// app.post('/signup', function (req, res) {
+//     var jsonData = req.body;
+//     db.users.save({ email: jsonData.email, password: jsonData.password}, function (err, saved) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.end('User saved');
+//         }
+//     });
+// });
 
 app.post('/signup', function (req, res) {
     var jsonData = req.body;
-
-    db2.users.findOne({ email: jsonData.email }, function (err, user) {
+    db.users.findOne({ email: jsonData.email }, function (err, saved) {
         if (err) {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-            return;
-        }
-
-        if (user) {
-            // User already exists
-            res.status(409).send('User already exists');
-            return;
-        }
-
-        // Create a new user document
-        var newUser = {
-            email: jsonData.email,
-            password: jsonData.password
-        };
-
-        // Save the new user
-        db2.users.insert(newUser, function (err, saved) {
-            if (err) {
-                console.error(err);
-                res.status(500).send('Internal Server Error');
-                return;
+            console.log(err);
+            return res.status(500).json(err);
+        } else {
+            if (!saved) {
+                db.users.save({ email: jsonData.email, password: jsonData.password }, function (err, savedUser) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json(err);
+                    } else {
+                        return res.status(200).json({ message: "Successfully registered" });
+                    }
+                });
+            } else {
+                return res.status(400).json({ message: "Email Already Exists" });
             }
-
-            console.log("User successfully signup");
-            // Successful signup
-            res.send('User registered successfully');
-        });
+        }
     });
 });
+
+// app.post('/signup', function (req, res) {
+//     var jsonData = req.body;
+
+//     db2.users.findOne({ email: jsonData.email }, function (err, user) {
+//         if (err) {
+//             console.error(err);
+//             res.status(500).send('Internal Server Error');
+//             return;
+//         }
+
+//         if (user) {
+//             // User already exists
+//             res.status(409).send('User already exists');
+//             return;
+//         }
+
+//         // Create a new user document
+//         var newUser = {
+//             email: jsonData.email,
+//             password: jsonData.password
+//         };
+
+//         // Save the new user
+//         db2.users.insert(newUser, function (err, saved) {
+//             if (err) {
+//                 console.error(err);
+//                 res.status(500).send('Internal Server Error');
+//                 return;
+//             }
+
+//             console.log("User successfully signup");
+//             // Successful signup
+//             res.send('User registered successfully');
+//         });
+//     });
+// });
 
 
 //--------------forgotpassword----------------------------------
+
 app.post('/forgotpassword', function (req, res) {
     var jsonData = req.body;
-
-    // Assuming you have a MongoDB collection named 'users'
-    db2.users.findOne({ email: jsonData.email, password: jsonData.password }, function (err, user) {
+    db.users.findOne({ email: jsonData.email }, function (err, saved) {
         if (err) {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-            return;
-        }
+            console.log(err);
+            return res.status(500).json(err);
+        } else {
+            if (saved) {
+                var password = saved.password; // Retrieve the password from the saved user object
 
-        if (!user) {
-            // User does not exist
-            res.status(404).send('User not found');
-            return;
-        }
+                // Send the email with the PDF attachment
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    host: 'smtp.google.email',
+                    // host: 'smtp.ethereal.email',
+                    port: 587,
+                    secure: false,
+                    auth: {
+                        user: 'vasuparsaniya21@gmail.com',
+                        pass: 'vwkwjanzdtbdorae'
+                    }
+                });
 
-        // Generate a new password
-        var newPassword = generateNewPassword();
+                const mailOptions = {
+                    from: 'vasuparsaniya21@gmail.com', // Sender email address
+                    to: jsonData.email, // Farmer email address
+                    subject: 'Market Yard - Password Recovery',
+                    // text: 'Your password: ' + password
+                    html: '<p><b>Your Login details for Market Yard</b><br><b>Email: </b>' + jsonData.email + '<br><b>Password: </b>' + password + '<br><a href="http://127.0.0.1:5500/Market_Yard-Frontend/login.html">Click Here To Login</a></p>'
+                };
 
-        // Update the user's password
-        db2.users.updateOne({ email: user.email }, { $set: { password: newPassword } }, function (err, result) {
-            if (err) {
-                console.error(err);
-                res.status(500).send('Internal Server Error');
-                return;
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                        return res.status(500).json({ error: 'Failed to send email' });
+                    } else {
+                        console.log('Email sent:', info.response);
+                        res.json({ success: true, message: 'PDF generated and Conformation of Email sent successfully' });
+                    }
+                });
+
+                return res.status(200).json({ message: "Password sent to email." });
+            } else {
+                return res.status(400).json({ message: "User Not Found" });
             }
-
-            // Send the new password to the user (e.g., via email)
-            sendPasswordEmail(user.email, newPassword);
-
-            // Password reset successful
-            res.send('Password reset successful. Please check your email for the new password.');
-        });
+        }
     });
 });
-
-function generateNewPassword() {
-    // Generate a new random password
-    // Implement your logic here to generate a secure password
-    // For simplicity, let's assume a random 8-character alphanumeric password
-    var newPassword = Math.random().toString(36).slice(-8);
-    return newPassword;
-}
-
-function sendPasswordEmail(email, newPassword) {
-    // Implement your logic here to send an email containing the new password to the user
-    // You can use a library like nodemailer to send emails
-    // Example code:
-    const nodemailer = require('nodemailer');
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        host: 'smtp.google.email',
-        // host: 'smtp.ethereal.email',
-        port: 587,
-        secure: false,
-        auth: {
-            user: 'vasuparsaniya21@gmail.com',
-            pass: 'vwkwjanzdtbdorae'
-        }
-    });
-
-    // Configure your email transport
-    const mailOptions = {
-        from: 'vasuparsaniya21@gmail.com',
-        to: email,
-        subject: 'Password Reset',
-        text: 'Your new password: ' + newPassword
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.error(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-}
 
 app.listen(8080, function () {
     console.log('Server listening on port 8080');

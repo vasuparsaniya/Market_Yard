@@ -8,10 +8,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="login.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
-    <script type="text/javascript" src="/Market_Yard_Backend/routes/user.js"></script>
+    <script type="text/javascript" src="/Market_Yard_Backend/routes/index.js"></script>
 </head>
 
-<body ng-controller="LoginSignup">
+<body ng-controller="UserListCtrl">
     <div class="main">    
         <div class="form">
             <div id="signup">
@@ -19,13 +19,15 @@
             <h2>Sign Up Here</h2>
             <input type="email" name="email" id="email" placeholder="Enter Your Email" ng-model="email"/>
             <input type="password" name="password" id="pass" placeholder="Enter Your Password" ng-model="password"/>
-            <input type="password" placeholder="Confirm Password" ng-model="confirmpassword"/>
-            <button type="submit" class="btnn" id="sub"><a href="index.html">Get Start</a></button>
+            <!-- <input type="password" placeholder="Confirm Password" ng-model="confirmpassword"/> -->
+            <input type="password" placeholder="Confirm Password" ng-model="confirmpassword" ng-change="checkPasswordMatch()"/>
+            <span id="warning" ng-show="!passwordMatch">*Password does not match</span>
+            <button type="submit" class="btnn" id="sub" ng-disabled="!passwordMatch" ng-class="{'button-disabled': !passwordMatch}">Get Start</button>
+                        <!-- <button type="submit" class="btnn" id="sub">Get Start</button> -->
             <p class="link">Back to
               <a href="./login.html">Login</a></p>
         </form>
         </div>
     </div>
-
 </body>
 </html>
